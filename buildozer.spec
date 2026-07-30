@@ -19,8 +19,10 @@ source.include_exts = py,png,jpg,kv,atlas,db,ttf
 source.exclude_exts = spec,pyc,pyo,pyd
 
 # (list) List of dependencies (Python packages)
-# IMPORTANTE: adicione o pandas e openpyxl
 requirements = python3,kivy==2.1.0,pandas,openpyxl,requests,setuptools
+
+# (str) python-for-android branch to use (needed for NDK 28c compatibility fixes for pandas/numpy)
+p4a.branch = develop
 
 # (str) Custom version (semantic)
 version = 1.0.0
@@ -49,7 +51,7 @@ android.enable_androidx = True
 # (list) Permissions required by the app
 android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
 
-# (str) Android architecture(s) (armeabi-v7a, arm64-v8a, x86, x86_64)
+# (str) Android architecture(s)
 android.arch = armeabi-v7a, arm64-v8a
 
 # (bool) Allow backup of app data
@@ -57,7 +59,7 @@ android.allow_backup = True
 
 [buildozer]
 
-# (int) Log level (0 = error only, 1 = info, 2 = debug, 3 = trace)
+# (int) Log level
 log_level = 2
 
 # (bool) Warn if a required build tool is missing
