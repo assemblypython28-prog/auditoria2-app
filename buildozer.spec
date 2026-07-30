@@ -38,7 +38,7 @@ orientation = portrait
 android.api = 30
 
 # (int) Minimum Android API level
-android.minapi = 21
+android.minapi = 24
 
 # (int) Android SDK version
 android.sdk_version = 30
