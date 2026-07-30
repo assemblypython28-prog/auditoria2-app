@@ -1,50 +1,64 @@
-name: Build APK
+[app]
 
-on:
-  workflow_dispatch:
-  push:
-    branches: [ main ]
+# (str) Title of your application
+title = Auditoria de Ativos
 
-jobs:
-  build:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
+# (str) Package name
+package.name = auditoriaativos
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+# (str) Package domain (reverse DNS)
+package.domain = org.auditoria
 
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            git zip unzip openjdk-17-jdk python3-pip autoconf libtool \
-            pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev \
-            libtinfo5 cmake libffi-dev libssl-dev build-essential \
-            ccache automake gettext autopoint
+# (str) Source code directory
+source.dir = .
 
-      - name: Install buildozer and cython
-        run: |
-          pip3 install --upgrade pip
-          pip3 install --upgrade buildozer cython==0.29.36 virtualenv
+# (list) Source files to include (separated by commas)
+source.include_exts = py,png,jpg,kv,atlas,db,ttf
 
-      - name: Build with Buildozer
-        run: |
-          set -o pipefail
-          yes | buildozer android debug 2>&1 | tee buildozer_build.log
+# (list) Exclude these files/folders
+source.exclude_exts = spec,pyc,pyo,pyd
 
-      - name: Upload build log (always, for debugging)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: buildozer-log
-          path: buildozer_build.log
+# (list) List of dependencies (Python packages)
+# IMPORTANTE: adicione o pandas e openpyxl
+requirements = python3,kivy==2.1.0,pandas,openpyxl,requests,setuptools
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: package
-          path: bin/*.apk
-          if-no-files-found: error
+# (str) Custom version (semantic)
+version = 1.0.0
+
+# (bool) Allow user to resize the window (desktop only)
+resizable = False
+
+# (str) Orientation (portrait, landscape, or both)
+orientation = portrait
+
+# (int) Target Android API level
+android.api = 30
+
+# (int) Minimum Android API level
+android.minapi = 24
+
+# (int) Android SDK version
+android.sdk_version = 30
+
+# (bool) Accept Android SDK license
+android.accept_sdk_license = True
+
+# (bool) Enable AndroidX (required for modern Kivy)
+android.enable_androidx = True
+
+# (list) Permissions required by the app
+android.permissions = INTERNET,READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE
+
+# (str) Android architecture(s) (armeabi-v7a, arm64-v8a, x86, x86_64)
+android.arch = armeabi-v7a, arm64-v8a
+
+# (bool) Allow backup of app data
+android.allow_backup = True
+
+[buildozer]
+
+# (int) Log level (0 = error only, 1 = info, 2 = debug, 3 = trace)
+log_level = 2
+
+# (bool) Warn if a required build tool is missing
+warn_on_missing = 1
