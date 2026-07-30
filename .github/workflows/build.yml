@@ -23,7 +23,7 @@ jobs:
             git zip unzip openjdk-17-jdk python3-pip autoconf libtool \
             pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev \
             libtinfo5 cmake libffi-dev libssl-dev build-essential \
-            ccache automake
+            ccache automake gettext autopoint
 
       - name: Install buildozer and cython
         run: |
@@ -32,6 +32,7 @@ jobs:
 
       - name: Build with Buildozer
         run: |
+          set -o pipefail
           yes | buildozer android debug 2>&1 | tee buildozer_build.log
 
       - name: Upload build log (always, for debugging)
@@ -46,4 +47,4 @@ jobs:
         with:
           name: package
           path: bin/*.apk
-       
+          if-no-files-found: error
