@@ -33,6 +33,8 @@ jobs:
       - name: Build with Buildozer
         run: |
           set -o pipefail
+          export CFLAGS="-Wno-error=incompatible-function-pointer-types"
+          export CPPFLAGS="-Wno-error=incompatible-function-pointer-types"
           yes | buildozer android debug 2>&1 | tee buildozer_build.log
 
       - name: Upload build log (always, for debugging)
