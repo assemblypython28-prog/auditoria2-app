@@ -56,3 +56,7 @@ jobs:
           name: package
           path: bin/*.apk
           if-no-files-found: error
+        # ATENÇÃO: se este arquivo aparecer no seu repo com
+        # "if-no-files-found:" sem valor, o step falha na validação
+        # do input e o artifact "package" nunca é gerado — mesmo que
+        # o buildozer tenha compilado o APK com sucesso.
