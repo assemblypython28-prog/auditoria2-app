@@ -34,7 +34,7 @@ resizable = False
 orientation = portrait
 
 # (int) Target Android API level
-android.api = 30
+android.api = 34
 
 # (int) Minimum Android API level
 android.minapi = 24
