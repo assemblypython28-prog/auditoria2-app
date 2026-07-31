@@ -37,11 +37,19 @@ jobs:
           pip3 install --upgrade buildozer cython==0.29.36 virtualenv
 
       - name: Build with Buildozer
+        shell: bash
         run: |
           set -o pipefail
           export CFLAGS="-Wno-error"
           export CPPFLAGS="-Wno-error"
           yes | buildozer android debug 2>&1 | tee buildozer_build.log
+          # "yes" recebe SIGPIPE (exit 141) assim que o buildozer para de
+          # ler stdin, e o pipefail acima captura ESSE código como o
+          # status da pipeline inteira - mesmo que o buildozer (índice 1
+          # no PIPESTATUS) e o tee tenham terminado com 0. Isso derruba o
+          # step mesmo com o APK gerado corretamente. Aqui pegamos o
+          # status real do buildozer e usamos ele pra decidir o resultado.
+          exit ${PIPESTATUS[1]}
 
       - name: Upload build log (always, for debugging)
         if: always()
