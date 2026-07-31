@@ -19,7 +19,7 @@ source.include_exts = py,png,jpg,kv,atlas,db,ttf
 source.exclude_exts = spec,pyc,pyo,pyd
 
 # (list) List of dependencies (Python packages)
-requirements = python3,kivy==2.1.0,openpyxl,requests,setuptools
+requirements = python3,kivy==2.3.0,openpyxl,requests,setuptools
 
 # (str) python-for-android branch to use (needed for NDK 28c compatibility fixes for pandas/numpy)
 p4a.branch = develop
